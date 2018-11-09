@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>我的留言本</h1>
+    <form action="#" method='POST' >
+        姓名：<input type="text" name='name' id='name' /><br/>
+        留言：<input type="textarea" name='liuyan' id='liuyan' colSpan="3"/><br/>
+        性别：<input type="radio" name='sex' value='女' />女
+        <input type="radio" name='sex' value='男' />男<br/>
+        <input type='submit' onclick="postLy(this);return false;"/>
+    </form>
+    <div id='quliuyan'></div>
+    <script type='text/template' id='muban'>
+        <div style="width:200px;float:left;">
+            <div>【姓名】{{= name}}</div>
+            <div>【留言】{{= liuyan}}</div>
+            <div>【时间】{{= time}}</div>
+        </div>
+           
+    </script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="underscore.js"></script>
+<script>
+    //underscore 和ejs模板冲突了 需要改一下 undeerscore的源码
+        $.get("/liuyan",function(data,status){
+            console.log(data);
+            //得到模板
+            var mubanString = $("#muban").html();
+            var compiled = _.template(mubanString);
+            for(let i = 0 ;i < data.length ;i++){
+                var compiledString = compiled(data[i]);
+                $("#quliuyan").append($(compiledString));
+            }  
+        })
+        function postLy(_this){
+            $.post("/tijiao",{
+                "name":$("#name").val(),
+                "liuyan":$("#liuyan").val(),
+                "time":new Date()
+            },function(res){
+                console.log(res);
+                if(res == 1){
+                    alert("提交成功");
+                    window.location.href='/';
+                }else{
+                    console.log("提交失败");
+                }
+            })
+        }
+</script>
+</html>
