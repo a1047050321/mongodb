@@ -52,7 +52,6 @@ exports.deleteData = function(collectionName,json,callback){
     __connectDB(function(err,db,client){
         db.collection(collectionName).deleteMany(json,function(err,result){
             callback(err,result);
-            console.log(db);
             client.close();  //关闭要是clent关闭 而不是client.db
         });
     });
@@ -62,7 +61,6 @@ exports.updateData = function(collectionName,json1,json2,callback){
     __connectDB(function(err,db,client){
         db.collection(collectionName).updateMany(json1,json2,function(err,result){
             callback(err,result);
-            console.log(db);
             client.close();  //关闭要是clent关闭 而不是client.db
         });
     });

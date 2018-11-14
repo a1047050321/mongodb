@@ -1,0 +1,31 @@
+{
+  "name": "day5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01.js",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "crypto": "^1.0.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "formidable": "^1.2.1",
+    "gm": "^1.23.1",
+    "mongodb": "^3.1.9",
+    "mongoose": "^5.3.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a1047050321/mongodb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a1047050321/mongodb/issues"
+  },
+  "homepage": "https://github.com/a1047050321/mongodb#readme"
+}

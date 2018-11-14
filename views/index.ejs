@@ -21,6 +21,7 @@
             <div>【姓名】{{= name}}</div>
             <div>【留言】{{= liuyan}}</div>
             <div>【时间】{{= time}}</div>
+            <a href="#" onclick="deleteData(this)"  data-id="{{= _id}}">删除</a>
         </div>
            
     </script>
@@ -35,6 +36,7 @@
             var mubanString = $("#muban").html();
             var compiled = _.template(mubanString);
             for(let i = 0 ;i < data.length ;i++){
+                console.log(data[i]);
                 var compiledString = compiled(data[i]);
                 $("#quliuyan").append($(compiledString));
             }  
@@ -48,6 +50,20 @@
                 console.log(res);
                 if(res == 1){
                     alert("提交成功");
+                    window.location.href='/';
+                }else{
+                    console.log("提交失败");
+                }
+            })
+        }
+        //动态生成的数据 拿不到
+        function deleteData(_this){
+            let id = $(_this).attr("data-id");
+            console.log(id);
+            $.post("/delete",{_id:id},function(res){
+                console.log(res);
+                if(res == 1){
+                    alert("删除成功");
                     window.location.href='/';
                 }else{
                     console.log("提交失败");

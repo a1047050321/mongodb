@@ -4,6 +4,8 @@ app.set("view engine",'ejs');
 var MongoClient = require("mongodb").MongoClient; //MongoClient 这个要大写 小写找不到
 var db = require("./models/db");
 var formidable = require("formidable");
+var objectId = require("mongodb").ObjectId;
+
 app.use(express.static("./public"));
 var assert = require("assert"); //错误处理 调试用的
 //显示留言列表
@@ -37,6 +39,23 @@ app.post("/tijiao",function(req,res){
                 res.json("-1");
             }else{
                 console.log(data);
+                res.json("1");
+            }
+        })
+    })
+});
+
+app.post("/delete",function(req,res){
+    var form = new formidable.IncomingForm();
+    form.parse(req,function(err,fileds,files){
+        console.log(fileds);
+        //直接删除id删不掉 因为mongodb存储的时候是用ObjectId包裹的字符串，所以要同理。
+        var _id  = objectId(fileds["_id"]);
+        db.deleteData("liuyan",{_id},function(err,data){
+            if(err){
+                //ajax返回值一般设置为json
+                res.json("-1");
+            }else{
                 res.json("1");
             }
         })
